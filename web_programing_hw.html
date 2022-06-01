@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Unreal Engine 5 조사</title>
+	<style>
+		header{
+			background-color: lightgray;
+			box-shadow: 1px 1px 4px 2px gray;
+		}
+		.Table{
+			padding: 0px 0px 0px 0px;
+			transition: left .5s;
+			background-color: white;
+			box-shadow: 0px 0px 0px 0px;
+			position: fixed;
+    		overflow: hidden;
+    		width: 300px;
+    		top: 0px;
+			bottom: 0px;
+    		left: -300px;
+			z-index: 0;
+		}
+		.Table:hover{
+    		left: 0px;
+			box-shadow: 1px 1px 4px 2px gray;
+		}
+		.TableList{
+			padding: 10px 10px 10px 10px;
+		}
+		.TableButton{
+			padding: 0px 0px 0px 0px;
+			text-align: center;
+			background-color: white;
+			border: 1px solid gray;
+			border-radius: 5px;
+			position: fixed;
+    		overflow: hidden;
+    		width: 55px;
+			height: 30px;
+    		top: 0px;
+    		left: 0px;
+			z-index: 1;
+		}
+		.ChildSection{
+			padding-left: 20px;
+		}
+		div{
+			display: block;
+			padding: 10px 10px 10px 10px;
+		}
+		.Link:hover{
+			box-shadow: 1px 1px 4px 2px gray;
+		}
+		#myCanvas{
+			background-color: aliceblue;
+			width: 560px;
+			height: 315px;
+		}
+		img{
+			width: 560px;
+			height: 315px;
+		}
+		th{
+			border: 1px solid black;
+		}
+		td{
+			border: 1px solid black;
+		}
+	</style>
+	<script>
+		// 배경화면 색 설정
+		function SetBgColor() {
+			let obj = document.getElementById("bgInput");
+			let targets = document.getElementsByClassName("bgTarget");
+			for(let i = 0; i < targets.length; i++){
+				if (targets[i].style)
+					targets[i].style.backgroundColor = obj.value;
+			}
+		}
+
+		// 글자 색 설정
+		function SetFtColor() {
+			let obj = document.getElementById("ftInput");
+			let targets = document.getElementsByClassName("ftTarget");
+			for(let i = 0; i < targets.length; i++){
+				if (targets[i].style)
+					targets[i].style.color = obj.value;
+			}
+		}
+
+		// 윈도우 열기
+		function OpenWindow() {
+			window.open("https://www.unrealengine.com/ko/unreal-engine-5", "_blank");
+		}
+
+		// 엔진의 사용 비율 관련
+		let engineName = [
+			"Unity",
+			"Unreal",
+			"GameMaker",
+			"Other",
+			"RPGMaker",
+			"Ren'Py",
+			"XNA",
+			"Unknown"
+		];
+		let engineValue = [
+			342,
+			119,
+			21,
+			20,
+			20,
+			14,
+			1,
+			104
+		];
+
+		function decimalToHexString(number)
+		{
+			if (number < 0)
+			{
+			  number = 0xFFFFFFFF + number + 1;
+			}
+	  
+			return number.toString(16).toUpperCase();
+		}
+		// 차트 그리기
+		function DrawGraph(){
+			let canvas = document.getElementById("myCanvas");
+			let context = canvas.getContext("2d");
+			let count = engineName.length;
+			let nameX = 10;
+			let valueX = 70;
+			let y = 15;
+			let height = 10;
+			
+			for(let i = 0; i < count; i++){
+				context.beginPath();
+				context.fillStyle = "#" + decimalToHexString(Math.floor(Math.random() * 16777216));
+				context.rect(valueX, y - height / 2, engineValue[i] * 0.6, height);
+				context.fill();
+				context.closePath();
+				context.strokeStyle = "black"
+				context.fontSize = "8px";
+				context.strokeText(engineName[i], nameX, y);
+				context.strokeText(engineValue[i], valueX, y);
+				y += 18;
+			}
+		}
+	</script>
+</head>
+<body class="bgTarget">
+	<header>
+		<h1 name ="top">Unreal Engine5</h1><hr>
+	</header>
+	<nav></nav>
+	<div class="Table">
+		<div class="TableButton" style="font-weight: bold;">목차▶</div>
+		<br>
+		<ul>
+			<li class="TableList"><a href="#a1">1.</a> 주제 선정 동기</li>
+			<li class="TableList"><a href="#a2">2.</a> 주제 관련 Future Plan</li>
+			<li class="TableList"><a href="#a3">3.</a> Unreal Engine5 소개</li>
+			<li class="TableList"><a href="#a4">4.</a> Unreal Engine5 구조</li>
+			<li class="TableList"><a href="#a4-1">4-1.</a> Level</li>
+			<li class="TableList"><a href="#a4-2">4-2.</a> Actor</li>
+			<li class="TableList"><a href="#a4-3">4-3.</a> Component</li>
+			<li class="TableList"><a href="#a5">5.</a> Blueprint</li>
+			<li class="TableList"><a href="#a6">6.</a> Unity 엔진과의 차이점</li>
+		</ul>
+		<br><br>
+		<div>설정▶</div>
+		<form>
+			<div>
+				문서의 배경 색 : 
+				<input id="bgInput" type="color" value="#FFFFFF">
+				<input type="button" value="적용" onclick="SetBgColor()">
+			</div>
+			<div>
+				문서의 글자 색 : 
+				<input id="ftInput" type="color" value="#000000">
+				<input type="button" value="적용" onclick="SetFtColor()">
+			</div>
+		</form>
+	</div>
+	<aside>
+	</aside>
+	<section>
+		<header>
+			<h2><a name="a1">1.</a> 주제 선정 동기</h2><hr>
+		</header>
+		<div class="ftTarget">
+			저는 게임 프로그래밍을 지망하고 있습니다. 3D 게임 엔진에 대해서도 관심이 많습니다. 
+			그래서 가장 최근의 출시된 사용 3D 게임 엔진인 Unreal Engine 5에 대해서 흥미가 있습니다. 
+			Unreal Engine 5는 사실적인 AI 캐릭터와 물체들이 계속해서 움직이는 가상 시뮬레이션을 구현하기 편리하며 
+			뿐만 아니라 방대한 오픈 월드를 제작할 수 있다는 점은 메타버스 시대에 대해 무한한 가능성을 보여주며 앞으로의 발전 가능성이 높다고 생각했습니다. 
+			그렇기 때문에 Unreal Engine 5를 주제로 선정하게 되었습니다.
+		</div>
+	</section>
+	<section>
+		<header>
+			<h2><a name="a2">2.</a> 주제 관련 Future Plan</h2><hr>
+		</header>
+		<div class="ftTarget">
+			전부터 Unity나 Unreal Engine 4에 대해서는 꾸준히 공부하였습니다. 
+			Unity 프로젝트는 협동 프로젝트로 팀원들과 현재 진행형에 있으며 
+			Unreal Engine 4는 이미 하나의 개인 프로젝트를 완료해보았습니다. 
+			그러므로 Unreal Engine 5에 대해서 학교 졸업 전까지 관련 프로젝트를 하나 제작해보면서 공부할 계획입니다. 
+			또한 엔진을 만들 때 사용되는 렌더링 관련 기술인 DirectX도 게임 관련 직종에 취업하기 위해서는 공부해두는 것이 유리합니다. 
+			그러므로 틈틈이 공부하여 관련 프로젝트를 진행해 볼 생각입니다.
+		</div>
+	</section>
+	<section>
+		<header>
+			<h2><a name="a3">3.</a> Unreal Engine5 소개</h2><hr>
+		</header>
+		<div class="ftTarget">
+			<iframe width="560" height="315" src="https://www.youtube.com/embed/F5tbd_q-qPs" title="YouTube video player" frameborder="0" 
+			allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+			<br><br>
+			언리얼 엔진 5는 <span style="background-color: cyan;" class="Link" onclick="OpenWindow()">EpicGames</span>에서 제작한 3D 게임엔진으로 2022. 4. 6.에 출시되었습니다.
+			엔진의 사용 비율 또한 유니티의 다음으로 많이 사용되는 엔진입니다.<br><br>
+			2021년 기준 엔진의 사용 비율<br>
+			<canvas id="myCanvas"></canvas><br><br>
+
+		</div>
+	</section>
+	<section>
+		<header>
+			<h2><a name="a4">4.</a> Unreal Engine5 구조</h2><hr>
+		</header>
+		<div class="ftTarget">
+			언리얼 엔진의 구조는 크게 3가지로 이루어져 있습니다. <br>
+			월드를 와 같은 개념인 Level, 월드 안의 물체인 Actor, Actor의 기능인 Component로 이루어져 있습니다.
+		</div>
+
+		<section class="ChildSection">
+			<header>
+				<h2><a name="a4-1">4-1.</a> Level</h2><hr>
+			</header>
+			<div class="ftTarget">
+				레벨(Level) 은 게임 '월드'의 모든 것 또는 일부입니다.
+				환경, 사용 가능한 오브젝트, 다른 캐릭터 등 플레이어가 보고 상호작용할 수 있는 모든 것이 레벨에 포함됩니다. 
+				일반적으로 비디오 게임에서는 여러 레벨이 있으며 레벨 간 전환이 명확히 구분되어 있습니다. 
+				예를 들어 한 레벨의 최종 보스를 물리치면 다음 레벨로 이동하게 됩니다. 
+				언리얼 엔진으로 제작하는 다른 유형의 인터랙티브 경험에서는 여러 가지 상황이나 환경 간의 전환을 위해 다양한 레벨을 사용할 수도 있습니다.<br><br>
+				언리얼 엔진은 각 레벨을 별도의 .umap 파일로 저장합니다. 그래서 때로는 레벨이 맵(Maps) 이라고 불리기도 합니다.<br>
+
+				레벨 하나를 생성하는 데 필요한 최소한의 요소는 다음과 같습니다.<br>
+
+				<ul>
+					<li>레벨 그 자체인 .umap 파일. 다른 모든 것을 담는 용기라고 생각하면 됩니다.</li>
+					<li>스태틱 메시 액터(Static Mesh Actor) 로 구성된 환경. 나무, 바위, 벽 또는 기타 환경 픽스처가 여기에 해당합니다.</li>
+					<li>스켈레탈 메시 액터(Skeletal Mesh Actor) 로 나타나는 플레이어 캐릭터.</li>
+					<li>하나 이상의 다양한 라이트.</li>
+					<li>앰비언트 사운드와 사운드 이펙트(예: 발걸음 소리).</li>
+				</ul>
+				복잡한 레벨의 경우 파티클 이펙트(Particle Effects), 비주얼 포스트 프로세싱(Visual Post-Processing), 레벨 스트리밍(Level Streaming) 등의 기타 기능이 포함될 수 있습니다.
+			</div>
+		</section>
+
+		<section class="ChildSection">
+			<header>
+				<h2><a name="a4-2">4-2.</a> Actor</h2><hr>
+			</header>
+			<div class="ftTarget">
+				Actor, 액터란 레벨에 배치할 수 있는 오브젝트를 말합니다. 
+				액터는 이동, 회전, 스케일과 같은 3D 트랜스폼을 지원하는 범용 클래스입니다. 
+				액터는 게임플레이 코드(C++ 또는 블루프린트)를 통해 생성(스폰) 및 소멸 가능합니다. 
+				C++ 에서 AActor 는 모든 액터의 베이스 클래스입니다.<br>
+				액터에는 여러가지 유형이 있으며, 몇 가지 예를 들면 다음과 같습니다: StaticMeshActor, CameraActor, PlayerStartActor.<br>
+			</div>
+		</section>
+
+		<section class="ChildSection">
+			<header>
+				<h2><a name="a4-3">4-3.</a> Component</h2><hr>
+			</header>
+			<div class="ftTarget">
+				컴포넌트(Component) 는 액터에 추가할 수 있는 하나의 함수 기능입니다.<br><br>
+				액터에 컴포넌트를 추가하면 액터는 해당 컴포넌트가 제공하는 기능을 사용할 수 있습니다. 예시:<br>
+				<ul>
+					<li>스포트 라이트 컴포넌트는 액터가 라이트를 스포트 라이트처럼 발산하게 만듭니다.</li>
+					<li>회전 이동 컴포넌트는 액터가 회전하게 만듭니다.</li>
+					<li>오디오 컴포넌트는 액터가 소리를 재생하게 만듭니다.</li>
+				</ul><br>
+				액터와는 달리 컴포넌트는 자립하여 존재할 수 없습니다. 반드시 액터에 어태치되어야 합니다.<br>
+				액터에 컴포넌트를 추가하는 것은 그 액터 전체를 이루는 조각들을 결합하는 것과 같습니다. 
+				예를 들어 자동차(액터)는 바퀴, 핸들, 차체, 라이트 등(컴포넌트)으로 구성됩니다. 
+				이와 비슷하게, 플레이어 캐릭터를 나타내는 액터에게는 스켈레탈 메시(캐릭터의 시각적 표현), 
+				캐릭터를 따라다니는 카메라, 플레이어의 입력을 받는 컨트롤러 등 갖가지 개별적인 컴포넌트가 있을 수 있습니다.<br><br>
+				액터를 구성하는 컴포넌트를 결합하면 액터의 기능을 지시하는 블루프린트(Blueprint) 스크립트(또는 C++ 코드) 없이도 레벨에 액터를 배치할 수 있습니다. 
+				위의 예시를 계속 이어서 설명하자면, 자동차(액터)는 움직임을 조종하는 운전자(블루프린트 또는 C++) 없이도 세상(레벨)에 오브젝트로서 존재할 수 있습니다. 
+				블루프린트 또는 C++ 코드는 자동차의 각 컴포넌트에 개별적으로 액세스하는 데 사용됩니다(예: 가속 페달 컴포넌트를 누르면 블루프린트 로직이 자동차 속도를 높임).
+			</div>
+		</section>
+	</section>
+	<section>
+		<header>
+			<h2><a name="a5">5.</a> Blueprint</h2><hr>
+		</header>
+		<div class="ftTarget">
+			<img src="https://docs.unrealengine.com/5.0/Images/programming-and-scripting/blueprints-visual-scripting/QuickStart/BPQS_6_Step4.png"><br>
+			언리얼 엔진은 일반적으로 프로그래머가 C++를 활용해서 스크립트를 구현하지만, 프로그래머가 아닌 디자이너도 활용할 수 있도록 만들어진 비주얼 스크립팅 시스템입니다.
+			언리얼 엔진의 비주얼 스크립팅 시스템인 Blueprint (블루프린트)는 언리얼 에디터 안에서 노드 기반 인터페이스를 사용하여 게임플레이 요소를 만드는 개념을 토대로 한 비주얼 스크립팅 시스템입니다. 
+			일반적인 스크립팅 언어와 마찬가지로, 엔진 내 객체 지향형(OO) 클래스 또는 오브젝트를 정의하는 데 사용됩니다. UE4 를 사용하다 보면, 
+			블루프린트를 사용하여 정의된 오브젝트를 그냥 일상적으로 "블루프린트" 라 하는 경우가 많습니다.<br><br>
+			이 시스템은 매우 유연하고 강력해서, 보통은 프로그래머가 없으면 힘들었던 개념 구현이나 툴 작업 거의 전부를 디자이너 스스로 해낼 수 있게 되었습니다. 
+			게다가, 언리얼 엔진의 C++ 구현에서 가능한 블루프린트 전용 마크업을 통해 프로그래머가 어떤 기반 시스템을 제작하면, 디자이너가 그것을 확장하는 것도 가능합니다.
+		</div>
+	</section>
+	<section>
+		<header>
+			<h2><a name="a6">6.</a> Unity 엔진과의 차이점</h2><hr>
+		</header>
+		<div class="ftTarget">
+			Unity 엔진과 Unreal 엔진은 둘다 자주 사용되는 엔진이니 만큼 비교 분석을 하여 정리해보았습니다.<br>
+			<table>
+				<tr><th>항목</th><th>Unity</th><th>Unreal</th></tr>
+				<tr><td>사양</td>
+					<td>Unity 엔진은 가볍다.<br>
+						다양한 플러그인을 사용하여 확장한다.</td>
+					<td>Unreal 엔진은 무겁다.<br>
+						기본적으로 주어지는 기능이 뛰어나다.</td></tr>
+				<tr><td>퍼포먼스</td>
+					<td>노력 여하에 따라 Unreal 엔진을<br>
+						따라잡을 수 있다.</td>
+					<td>그래픽 퍼포먼스가 뛰어나다.</td></tr>
+				<tr><td>스크립팅</td>
+					<td>C#을 사용하기에 프로그래밍 하기에 용이하다.<br>
+						컴포넌트 패턴을 사용한다.</td>
+					<td>C++을 사용하여 메모리 관리의 어려움이 있다.<br>
+						블루프린트라는 좋은 비주얼 스크립팅을 제공한다.</td></tr>
+				<tr><td>접근성</td>
+					<td>입문이 쉽고 점유율 측면에서 압도적이며,<br>
+						자료가 많아 공부하기 편하다.</td>
+					<td>점유율이 Unity 엔진보다는 떨어진다.<br>
+						자료가 상대적으로 적지만 공식적으로 교육 영상을 제공한다.</td></tr>
+			</table>
+		</div>
+	</section>
+	<footer>
+
+	</footer>
+	<script>
+		DrawGraph();
+	</script>
+</body>
+</html>
